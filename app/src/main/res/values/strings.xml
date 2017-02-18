@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Desu</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="addFriend">Ajouter ami</string>
+    <string name="createEvent">Créer événement</string>
+    <string name="eventList">Evénements</string>
+    <string name="friendsList">Liste d\'amis</string>
+    <string name="settings">Paramètres</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="btn_connexion">Connexion</string>
+    <string name="labelTelMobile">Tel. Mobile</string>
+    <string name="labelMail">E-mail</string>
+    <string name="labelPrenom">Prénom</string>
+    <string name="labelNom">Nom</string>
+    <string name="labelMotDePasse">Mot de passe</string>
+    <string name="labelConfirmationMotDePasse">Confirmation du mot de passe</string>
+    <string name="btn_inscription">S\'inscrire</string>
+</resources>
