@@ -93,7 +93,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_addFriend) {
 
         }else if (id == R.id.nav_settings) {
-
+            SettingsFragment settingsFragment = new SettingsFragment();
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction().replace(R.id.content_main, settingsFragment, settingsFragment.getTag()).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
