@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_listEvents) {
-            ListEventsFragment listEventsFragment = new ListEventsFragment();
+            ListEventFragment listEventsFragment = new ListEventFragment();
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.content_main, listEventsFragment, listEventsFragment.getTag()).commit();
         } else if (id == R.id.nav_createEvent) {
