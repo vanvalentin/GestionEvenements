@@ -93,6 +93,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
+                android:id="@+id/editText_pwd"
                 android:hint="@string/labelMotDePasse" />
         </android.support.design.widget.TextInputLayout>
 
@@ -104,6 +105,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/editText_confirmPwd"
                 android:hint="@string/labelConfirmationMotDePasse"
                 android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_settings"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.valentin.desu.SettingsFragment"
+    android:orientation="vertical">
+
+    <Switch
+        android:text="Notification"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/switchNotifications"
+        android:layout_weight="1" />
+
+    <TextView
+        android:text="Changer de mot de passe"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewChangedPwd"
+        android:layout_weight="1"
+        android:gravity="center_vertical"/>
+
+    <TextView
+        android:text="Modifier informations"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewChangedInfo"
+        android:layout_weight="1"
+        android:gravity="center_vertical"/>
+
+    <TextView
+        android:text="Supprimer Compte"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewDelete"
+        android:layout_weight="1"
+        android:gravity="center_vertical"/>
+
+
+</LinearLayout>

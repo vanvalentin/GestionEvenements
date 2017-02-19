@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "975978029488",
+    "firebase_url": "https://desu-7e779.firebaseio.com",
+    "project_id": "desu-7e779",
+    "storage_bucket": "desu-7e779.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:975978029488:android:27b55818a7f77dbb",
+        "android_client_info": {
+          "package_name": "com.example.valentin.desu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "975978029488-0obtpii7en9r3eqscl2u4c4cboccvsj5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.valentin.desu",
+            "certificate_hash": "F156AB00A37968DCF333F6D1A4B91D1A657A534B"
+          }
+        },
+        {
+          "client_id": "975978029488-ac74tfs838ju6lo19msu632agnnp7f1p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLmD0ouneVdNQsqrQGk28CRO1HBCIk4Rw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "975978029488-ac74tfs838ju6lo19msu632agnnp7f1p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
