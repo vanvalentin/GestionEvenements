@@ -21,4 +21,5 @@
     <string name="labelMotDePasse">Mot de passe</string>
     <string name="labelConfirmationMotDePasse">Confirmation du mot de passe</string>
     <string name="btn_inscription">S\'inscrire</string>
+    <string name="dialogConnexion">Se connecter</string>
 </resources>
