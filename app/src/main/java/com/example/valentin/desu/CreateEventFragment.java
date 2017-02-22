@@ -5,18 +5,30 @@ import android.annotation.TargetApi;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.icu.text.DecimalFormat;
 import android.icu.text.NumberFormat;
 import android.icu.util.Calendar;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TimePicker;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 
 /**
@@ -35,7 +47,8 @@ public class CreateEventFragment extends Fragment {
     private TimePickerDialog timePickerDialog;
     public String time;
 
-    public  Button btnPhoto;
+    public  ImageView btnPhoto;
+    public static int OPEN_IMAGE = 1;
 
     public CreateEventFragment() {
         // Required empty public constructor
@@ -49,7 +62,7 @@ public class CreateEventFragment extends Fragment {
         context = getActivity();
         btnDate = (Button)view.findViewById(R.id.button_Date);
         btnTime= (Button)view.findViewById(R.id.button_Time);
-        btnPhoto = (Button)view.findViewById(R.id.button_Photo);
+        btnPhoto = (ImageView)view.findViewById(R.id.imageViewPhoto);
 
         return view;
     }
@@ -96,7 +109,41 @@ public class CreateEventFragment extends Fragment {
             }
         });
 
+        btnPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+                i.setType("image/*");
+                startActivityForResult(i, OPEN_IMAGE);
+            }
+        });
+
         super.onActivityCreated(savedInstanceState);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == OPEN_IMAGE && data != null) {
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+            Cursor cursor = getActivity().getContentResolver().query(selectedImage,
+                    filePathColumn, null, null, null);
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String picturePath = cursor.getString(columnIndex);
+            btnPhoto.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+            cursor.close();
+
+            File file = new File(picturePath);
+            if (file.exists()) {
+               // Bitmap bMap = Bitmap.decodeFile(file);
+
+                btnPhoto.setImageBitmap(/*bMap*/);
+            }
+        }
+    }
 }
