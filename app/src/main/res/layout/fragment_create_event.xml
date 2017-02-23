@@ -12,14 +12,11 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_height="match_parent">
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             app:srcCompat="@mipmap/ic_launcher"
             android:id="@+id/imageViewPhoto"
             android:layout_weight="2"/>
@@ -31,7 +28,7 @@
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:id="@+id/editText_Nom"
                 android:inputType="textPersonName"
                 android:hint="Nom Evenement"/>
@@ -44,7 +41,7 @@
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:id="@+id/editText_Lieux"
                 android:inputType="textPersonName"
                 android:hint="Lieu"/>

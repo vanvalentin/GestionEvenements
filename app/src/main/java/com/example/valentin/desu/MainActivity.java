@@ -89,6 +89,9 @@ public class MainActivity extends AppCompatActivity
             manager.beginTransaction().replace(R.id.content_main, createEventFragment, createEventFragment.getTag()).commit();
 
         } else if (id == R.id.nav_listFriend) {
+            ListFriendsFragment listFriendsFragment = new ListFriendsFragment();
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction().replace(R.id.content_main, listFriendsFragment, listFriendsFragment.getTag()).commit();
 
         } else if (id == R.id.nav_addFriend) {
 

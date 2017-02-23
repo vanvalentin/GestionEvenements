@@ -15,6 +15,7 @@ import android.icu.util.Calendar;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -27,7 +28,9 @@ import android.widget.LinearLayout;
 import android.widget.TimePicker;
 
 import java.io.File;
+import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 
 
@@ -135,15 +138,29 @@ public class CreateEventFragment extends Fragment {
 
             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
             String picturePath = cursor.getString(columnIndex);
-            btnPhoto.setImageBitmap(BitmapFactory.decodeFile(picturePath));
             cursor.close();
 
-            File file = new File(picturePath);
-            if (file.exists()) {
-               // Bitmap bMap = Bitmap.decodeFile(file);
-
-                btnPhoto.setImageBitmap(/*bMap*/);
+            Bitmap bmp = null;
+            try
+            {
+                bmp = getBitmapFromUri(selectedImage);
+                btnPhoto.setImageBitmap(bmp);
             }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+            //btnPhoto.setImageBitmap(BitmapFactory.decodeFile(picturePath));
         }
+    }
+
+    // récupere l'image
+    private Bitmap getBitmapFromUri(Uri uri) throws IOException {
+        ParcelFileDescriptor parcelFileDescriptor =
+                getActivity().getContentResolver().openFileDescriptor(uri, "r");
+        FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
+        Bitmap image = BitmapFactory.decodeFileDescriptor(fileDescriptor);
+        parcelFileDescriptor.close();
+        return image;
     }
 }
