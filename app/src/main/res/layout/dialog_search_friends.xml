@@ -18,5 +18,13 @@
         android:layout_height="wrap_content"
         android:id="@+id/autoCompleteTextView" />
 
+    <Button
+        android:text="Validez"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonValide"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"/>
+
 
 </LinearLayout>

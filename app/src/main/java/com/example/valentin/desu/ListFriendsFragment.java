@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.LinkedList;
@@ -23,10 +24,11 @@ public class ListFriendsFragment extends Fragment {
 
     public FloatingActionButton fab;
 
-    //public LinkedList<String> listFriends =  new LinkedList<String>();
-    public String[] listFriends = {"test", "ok"};
+    public LinkedList<String> listFriends =  new LinkedList<String>();
+    public String[] listFriendsTest = {"test", "ok"}; // faire une liste pour la base de données
     public ListView listViewFriends;
     public ArrayAdapter<String> adapter;
+    public ArrayAdapter<String> adapterseach; // pour la recherche
     FragmentActivity context;
 
 
@@ -46,7 +48,6 @@ public class ListFriendsFragment extends Fragment {
         adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,listFriends);
         listViewFriends.setAdapter(adapter);
 
-
         context = getActivity();
         return view;
     }
@@ -60,12 +61,24 @@ public class ListFriendsFragment extends Fragment {
             public void onClick(View view) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
                 View mView = context.getLayoutInflater().inflate(R.layout.dialog_search_friends,null);
-                AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView)mView.findViewById(R.id.autoCompleteTextView);
+                final AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView)mView.findViewById(R.id.autoCompleteTextView);
+                Button buttonValide = (Button)mView.findViewById(R.id.buttonValide);
 
-                
+                autoCompleteTextView.setText("");
+                adapterseach = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,listFriendsTest);
+                autoCompleteTextView.setAdapter(adapterseach);
 
                 mBuilder.setView(mView);
-                AlertDialog dialog = mBuilder.create();
+                final AlertDialog dialog = mBuilder.create();
+
+                buttonValide.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        adapter.add(autoCompleteTextView.getText().toString());
+                        dialog.cancel();
+                    }
+                });
+
                 dialog.show();
             }
         });
