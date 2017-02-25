@@ -41,7 +41,7 @@ public class ListFriendsFragment extends Fragment {
 
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
         listViewFriends = (ListView)view.findViewById(R.id.listFriends);
-        //adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,listFriends);
+        adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,listFriends);
         listViewFriends.setAdapter(adapter);
 
 
