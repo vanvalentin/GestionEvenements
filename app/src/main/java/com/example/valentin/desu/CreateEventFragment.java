@@ -5,12 +5,19 @@ import android.annotation.TargetApi;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.icu.text.DecimalFormat;
 import android.icu.text.NumberFormat;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -22,6 +29,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -30,6 +38,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.FileDescriptor;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.Date;
@@ -53,7 +63,8 @@ public class CreateEventFragment extends Fragment {
     private TimePickerDialog timePickerDialog;
     public String time;
 
-    public  Button btnPhoto;
+    public ImageView btnPhoto;
+    public static int OPEN_IMAGE = 1;
 
     public Button btnCreate;
 
@@ -71,7 +82,7 @@ public class CreateEventFragment extends Fragment {
         context = getActivity();
         btnDate = (Button)view.findViewById(R.id.button_Date);
         btnTime= (Button)view.findViewById(R.id.button_Time);
-        btnPhoto = (Button)view.findViewById(R.id.button_Photo);
+        btnPhoto = (ImageView)view.findViewById(R.id.imageViewPhoto);
         btnCreate = (Button)view.findViewById(R.id.btn_createEvent);
 
         mAuth = FirebaseAuth.getInstance();
@@ -143,7 +154,46 @@ public class CreateEventFragment extends Fragment {
             }
         });
 
+        btnPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+                i.setType("image/*");
+                startActivityForResult(i, OPEN_IMAGE);
+            }
+        });
+
         super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == OPEN_IMAGE && data != null) {
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+            Cursor cursor = getActivity().getContentResolver().query(selectedImage,
+                    filePathColumn, null, null, null);
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String picturePath = cursor.getString(columnIndex);
+            cursor.close();
+
+            Bitmap bmp = null;
+            try
+            {
+                bmp = getBitmapFromUri(selectedImage);
+                btnPhoto.setImageBitmap(bmp);
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+            //btnPhoto.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+        }
     }
 
     @TargetApi(Build.VERSION_CODES.N)
@@ -172,6 +222,25 @@ public class CreateEventFragment extends Fragment {
         eventData.put("Prive", pIsPrivate);
 
         newEventRef.setValue(eventData);
+
+
+        DatabaseReference participantsRef = database.getReference().child("Participants");
+        DatabaseReference newParticipantsRef = participantsRef.child(newEventRef.getKey());
+
+        Map<String, Object> participantData = new HashMap<String, Object>();
+        participantData.put(pCreatorID, true);
+        newParticipantsRef.setValue(participantData);
+
+    }
+
+    // récupere l'image
+    private Bitmap getBitmapFromUri(Uri uri) throws IOException {
+        ParcelFileDescriptor parcelFileDescriptor =
+                getActivity().getContentResolver().openFileDescriptor(uri, "r");
+        FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
+        Bitmap image = BitmapFactory.decodeFileDescriptor(fileDescriptor);
+        parcelFileDescriptor.close();
+        return image;
     }
 
 }

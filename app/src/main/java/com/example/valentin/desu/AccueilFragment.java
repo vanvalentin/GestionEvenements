@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.valentin.desu.ClassesFirebase.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -133,7 +134,7 @@ public class AccueilFragment extends Fragment {
 
                     if(mPasswordConfirmation.equals(mPassword)){
 
-                        createAccount(mMail, mPassword, mNom, mPrenom, mTel);
+                        createAccount(new User(mNom, mPrenom, mTel, mMail), mPassword);
 
                     }else{
                         Toast.makeText(context, "La confirmation du mot de passe a échoué.",
@@ -151,8 +152,8 @@ public class AccueilFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-    private void createAccount(String email, String password, final String pNom, final String pPrenom, final String pTel) {
-        mAuth.createUserWithEmailAndPassword(email, password)
+    private void createAccount(final User pUser, String pPassword) {
+        mAuth.createUserWithEmailAndPassword(pUser.Email, pPassword)
                 .addOnCompleteListener(context, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -167,14 +168,8 @@ public class AccueilFragment extends Fragment {
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
                             DatabaseReference usersRef = database.getReference().child("Users");
 
-                            Map<String, String> userData = new HashMap<String, String>();
-
-                            userData.put("Prenom", pNom);
-                            userData.put("Nom", pPrenom);
-                            userData.put("Tel", pTel);
-
                             usersRef = usersRef.child(user.getUid());
-                            usersRef.setValue(userData);
+                            usersRef.setValue(pUser);
 
                         }
                     }
