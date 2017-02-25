@@ -150,7 +150,6 @@ public class CreateEventFragment extends Fragment {
             {
                 e.printStackTrace();
             }
-            //btnPhoto.setImageBitmap(BitmapFactory.decodeFile(picturePath));
         }
     }
 

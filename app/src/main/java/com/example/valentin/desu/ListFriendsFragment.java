@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
 
 import java.util.LinkedList;
@@ -22,7 +23,8 @@ public class ListFriendsFragment extends Fragment {
 
     public FloatingActionButton fab;
 
-    public LinkedList<String> listFriends =  new LinkedList<String>();
+    //public LinkedList<String> listFriends =  new LinkedList<String>();
+    public String[] listFriends = {"test", "ok"};
     public ListView listViewFriends;
     public ArrayAdapter<String> adapter;
     FragmentActivity context;
@@ -58,6 +60,9 @@ public class ListFriendsFragment extends Fragment {
             public void onClick(View view) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
                 View mView = context.getLayoutInflater().inflate(R.layout.dialog_search_friends,null);
+                AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView)mView.findViewById(R.id.autoCompleteTextView);
+
+                
 
                 mBuilder.setView(mView);
                 AlertDialog dialog = mBuilder.create();
