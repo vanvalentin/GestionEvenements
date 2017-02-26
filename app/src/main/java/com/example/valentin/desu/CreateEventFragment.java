@@ -33,6 +33,7 @@ import android.widget.ImageView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.valentin.desu.ClassesFirebase.Event;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -212,17 +213,9 @@ public class CreateEventFragment extends Fragment {
         }
         Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
 
-        Map<String, Object> eventData = new HashMap<String, Object>();
+        Event event = new Event(pCreatorID, timestamp, pDescription ,pLieu, pNomEvent, pIsPrivate);
 
-        eventData.put("CreatorUID", pCreatorID);
-        eventData.put("Nom", pNomEvent);
-        eventData.put("Lieu", pLieu);
-        eventData.put("Date", timestamp);
-        eventData.put("Description", pDescription);
-        eventData.put("Prive", pIsPrivate);
-
-        newEventRef.setValue(eventData);
-
+        newEventRef.setValue(event);
 
         DatabaseReference participantsRef = database.getReference().child("Participants");
         DatabaseReference newParticipantsRef = participantsRef.child(newEventRef.getKey());
