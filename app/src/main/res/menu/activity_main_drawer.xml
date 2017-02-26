@@ -20,10 +20,6 @@
                 android:id="@+id/nav_listFriend"
                 android:icon="@drawable/ic_list_friends"
                 android:title="@string/friendsList" />
-            <item
-                android:id="@+id/nav_addFriend"
-                android:icon="@drawable/ic_add_friend"
-                android:title="@string/addFriend" />
         </menu>
     </item>
 

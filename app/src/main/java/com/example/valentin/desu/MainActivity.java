@@ -136,9 +136,7 @@ public class MainActivity extends AppCompatActivity
             ListFriendsFragment listFriendsFragment = new ListFriendsFragment();
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.content_main, listFriendsFragment, listFriendsFragment.getTag()).commit();
-        } else if (id == R.id.nav_addFriend) {
-
-        }else if (id == R.id.nav_settings) {
+        } else if (id == R.id.nav_settings) {
             SettingsFragment settingsFragment = new SettingsFragment();
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.content_main, settingsFragment, settingsFragment.getTag()).commit();

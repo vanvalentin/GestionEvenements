@@ -2,12 +2,17 @@ package com.example.valentin.desu;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.widget.AdapterView;
 import android.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.example.valentin.desu.ClassesFirebase.Event;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,7 +37,6 @@ public class ListEventsFragment extends Fragment {
     public List<String> events;
     private FirebaseAuth mAuth;
 
-
     public ListEventsFragment() {
         // Required empty public constructor
     }
@@ -51,6 +55,8 @@ public class ListEventsFragment extends Fragment {
         );
         listViewEvents.setAdapter(adapter);
 
+
+
         searchViewEvents = (SearchView)view.findViewById(R.id.SearchView_Events);
 
         mAuth = FirebaseAuth.getInstance();
@@ -61,49 +67,63 @@ public class ListEventsFragment extends Fragment {
     @Override
     public void onActivityCreated(final Bundle savedInstanceState) {
 
+        listViewEvents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                EventFragment eventFragment = new EventFragment();
+                FragmentManager manager = getActivity().getSupportFragmentManager();
+                FragmentTransaction ft = manager.beginTransaction();
+                Bundle args = new Bundle();
+                args.putString("nom", adapter.getItem(position));
+                eventFragment.setArguments(args);
+                ft.replace(R.id.content_main, eventFragment, eventFragment.getTag()).commit();
+            }
+        });
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference participantsRef = database.getReference("Participants");
-        DatabaseReference eventsRef = database.getReference("Events");
 
-        final List<String> eventsUID = new ArrayList<String>();
-        //On recupere la liste des events auquel l'utilisateur est invite
-        participantsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        final List<String> eventsID = new ArrayList<String>();
+        ValueEventListener participantListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String userUID = mAuth.getCurrentUser().getUid();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    if(snapshot.hasChild(userUID)){
-                        eventsUID.add(snapshot.getKey());
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-
-        eventsRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(int i = 0; i < eventsUID.size(); ++i){
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        if(eventsUID.get(i).equals(snapshot.getKey())){
-                            Event currEvent = snapshot.getValue(Event.class);
-                            events.add(currEvent.getNom());
+                    for (DataSnapshot participants : snapshot.getChildren()) {
+                        if(participants.getKey().equals(userUID)) {
+                            eventsID.add(snapshot.getKey());
+                            continue;
                         }
                     }
                 }
-            }
 
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference eventsRef = database.getReference("Events");
+
+                eventsRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            for(String e : eventsID) {
+                                if (snapshot.getKey().equals(e)){
+                                    DataSnapshot currEventName = snapshot.child("nom");
+                                    adapter.add(currEventName.getValue(String.class));
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+            }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
-        });
+        };
 
-        adapter = new ArrayAdapter<String>(
-                getActivity(),android.R.layout.simple_list_item_1,events //changer test par listEvents
-        );
+        participantsRef.addValueEventListener(participantListener);
+
 
         searchViewEvents.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
