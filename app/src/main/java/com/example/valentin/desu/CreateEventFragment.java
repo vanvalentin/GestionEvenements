@@ -235,5 +235,4 @@ public class CreateEventFragment extends Fragment {
         parcelFileDescriptor.close();
         return image;
     }
-
 }
