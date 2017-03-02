@@ -1,5 +1,6 @@
 package com.example.valentin.desu;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -136,11 +137,7 @@ public class MainActivity extends AppCompatActivity
             ListFriendsFragment listFriendsFragment = new ListFriendsFragment();
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.content_main, listFriendsFragment, listFriendsFragment.getTag()).commit();
-        } else if (id == R.id.nav_settings) {
-            SettingsFragment settingsFragment = new SettingsFragment();
-            FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.content_main, settingsFragment, settingsFragment.getTag()).commit();
-        }else if (id == R.id.nav_logout) {
+        } else if (id == R.id.nav_logout) {
             mAuth.signOut();
         }
 
@@ -155,5 +152,10 @@ public class MainActivity extends AppCompatActivity
                 DrawerLayout.LOCK_MODE_LOCKED_CLOSED;
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.setDrawerLockMode(lockMode);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

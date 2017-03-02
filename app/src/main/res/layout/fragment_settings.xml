@@ -26,25 +26,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/textViewChangedPwd"
         android:layout_weight="1"
-        android:gravity="center_vertical"/>
-
-    <TextView
-        android:text="Modifier informations"
-        android:textSize="20sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textViewChangedInfo"
-        android:layout_weight="1"
-        android:gravity="center_vertical"/>
-
-    <TextView
-        android:text="Supprimer Compte"
-        android:textSize="20sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textViewDelete"
-        android:layout_weight="1"
-        android:gravity="center_vertical"/>
+        android:gravity="center_vertical"
+        android:clickable="true"
+        android:enabled="true" />
 
 
 </LinearLayout>

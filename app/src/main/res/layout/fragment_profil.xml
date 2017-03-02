@@ -15,75 +15,59 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="163dp"
+            android:layout_marginBottom="10dp">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:src="@mipmap/ic_launcher"
-                android:id="@+id/Photo_Profil" />
-        </LinearLayout>
+                android:id="@+id/Photo_Profil"
+                android:layout_weight="1"
+                android:layout_height="150dp"
+                android:layout_alignParentBottom="true" />
 
-        <LinearLayout
+        </RelativeLayout>
+
+        <TextView
+            android:text="Nom"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:id="@+id/textView_NameProfil"
+            android:textSize="30sp"
+            android:layout_marginTop="15dp" />
 
-            <TextView
-                android:text="Nom"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/textView_Name"
-                android:layout_weight="1" />
-
-
-            <TextView
-                android:text="Telephone"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/textView_phone"
-                android:layout_weight="1" />
-
-            <TextView
-                android:text="Email"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/textView_Email"
-                android:layout_weight="1" />
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
+            android:text="Téléphone"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:id="@+id/textView3"
+            android:textSize="14sp"
+            android:layout_marginTop="20dp" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/twitter"
-                android:id="@+id/imageView_twitter"
-                android:layout_weight="1" />
+        <TextView
+            android:text="XXXXXXX"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView_phoneProfil"
+            android:textSize="26sp" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/google"
-                android:id="@+id/imageView_google"
-                android:layout_weight="1" />
+        <TextView
+            android:text="Email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView4"
+            android:layout_marginTop="15dp" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/facebook"
-                android:id="@+id/imageView_facebook"
-                android:layout_weight="1" />
+        <TextView
+            android:text="Email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView_EmailProfil"
+            android:textSize="26sp" />
 
-        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
